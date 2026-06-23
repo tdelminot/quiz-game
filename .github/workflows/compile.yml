@@ -1,0 +1,31 @@
+name: Compilation C++
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+    
+    - name: Installer g++
+      run: sudo apt-get update && sudo apt-get install -y g++
+    
+    - name: Compiler le jeu
+      run: g++ -std=c++11 main.cpp -o quiz
+    
+    - name: Vérifier la compilation
+      run: |
+        if [ -f quiz ]; then
+          echo "✅ Compilation réussie !"
+          ls -lh quiz
+        else
+          echo "❌ Échec de compilation"
+          exit 1
+        fi

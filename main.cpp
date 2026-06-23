@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <chrono>
 
 struct Question {
     std::string texte;
@@ -36,6 +37,9 @@ int main() {
     int score = 0;
     std::string reponse;
     
+    auto debut = std::chrono::steady_clock::now();
+
+
     for (const auto& q : questions) {
         std::cout << "\nQuestion: " << q.texte << std::endl;
         std::cout << "Votre reponse: ";
@@ -49,6 +53,10 @@ int main() {
         }
     }
     
+     auto fin = std::chrono::steady_clock::now();
+     auto duree = std::chrono::duration_cast<std::chrono::seconds>(fin - debut);
+     std::cout << "\n⏱️ Temps total : " << duree.count() << " secondes\n";
+
     std::cout << "\nScore final: " << score << "/" << questions.size() << std::endl;
 
     std::cout << "Score max possible : " << questions.size() << "\n";

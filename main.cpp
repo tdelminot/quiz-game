@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -28,7 +28,7 @@ std::vector<Question> chargerQuestions(const std::string& fichier) {
 int main() {
     std::vector<Question> questions = chargerQuestions("questions.txt");
     
-    // Mélanger les questions
+    // Melanger les questions
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(questions.begin(), questions.end(), g);
@@ -37,22 +37,20 @@ int main() {
     std::string reponse;
     
     for (const auto& q : questions) {
-        std::cout << "\n❓ " << q.texte << "\nRéponse : ";
+        std::cout << "\nQuestion: " << q.texte << std::endl;
+        std::cout << "Votre reponse: ";
         std::getline(std::cin, reponse);
         
-        // Ignorer la casse
-        std::transform(reponse.begin(), reponse.end(), reponse.begin(), ::tolower);
-        std::string bonneRep = q.reponse;
-        std::transform(bonneRep.begin(), bonneRep.end(), bonneRep.begin(), ::tolower);
-        
-        if (reponse == bonneRep) {
-            std::cout << "✅ Correct !\n";
+        if (reponse == q.reponse) {
+            std::cout << "Bonne reponse!" << std::endl;
             score++;
         } else {
-            std::cout << "❌ Faux ! La réponse était : " << q.reponse << "\n";
+            std::cout << "Mauvaise reponse. La bonne etait: " << q.reponse << std::endl;
         }
     }
     
-    std::cout << "\n=== Score final : " << score << "/" << questions.size() << " ===\n";
+    std::cout << "\nScore final: " << score << "/" << questions.size() << std::endl;
+
+    std::cout << "Score max possible : " << questions.size() << "\n";
     return 0;
 }

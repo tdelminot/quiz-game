@@ -1,0 +1,33 @@
+name: Tests Automatisés
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        compiler: [g++-9, g++-10, g++-11, clang++-12]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Installer compilateurs
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++-9 g++-10 g++-11 clang-12
+    
+    - name: Compiler avec ${{ matrix.compiler }}
+      run: ${{ matrix.compiler }} -std=c++11 test_quiz.cpp -o test_quiz
+    
+    - name: Exécuter les tests
+      run: ./test_quiz
+    
+    - name: Tester le jeu principal
+      run: |
+        g++ -std=c++11 main.cpp -o quiz
+        echo "2+2" | ./quiz | grep -q "Score final" && echo "✅ Jeu fonctionnel"

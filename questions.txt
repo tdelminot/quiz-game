@@ -1,0 +1,4 @@
+Quelle est la capitale de la France ?|Paris
+Combien font 2 + 2 ?|4
+Qui a écrit "Les Misérables" ?|Victor Hugo
+Quel langage est utilisé ici ?|C++

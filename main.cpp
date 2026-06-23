@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <random>
 #include <chrono>
+#include <fstream> 
 
 struct Question {
     std::string texte;
@@ -60,5 +61,17 @@ int main() {
     std::cout << "\nScore final: " << score << "/" << questions.size() << std::endl;
 
     std::cout << "Score max possible : " << questions.size() << "\n";
+    
+    
+    // Sauvegarde du score
+    std::ofstream sauvegarde("dernier_score.txt");
+    if (sauvegarde.is_open()) {
+    sauvegarde << score << "/" << questions.size() << "\n";
+    sauvegarde.close();
+    std::cout << "Score sauvegardé dans dernier_score.txt\n";
+}
+    
+    
+    
     return 0;
 }
